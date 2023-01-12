@@ -25,10 +25,39 @@ def list_products():
     return result
 
 # by name
-@app.route("/products/search/<string:product_name>")
+@app.route("/products/search/name/<string:product_name>")
 def searchby_name(product_name):
     products = Product.query.filter(Product.name.contains(product_name)).all()
-    print(products)
+    if len(products) == 0:
+        result = new_result("not found", "there are no products that meet the specified specifications on database")
+    else:
+        result = new_result("success", to_json(products))
+    result.headers.add("Access-Control-Allow-Origin", "*")
+    return result
+
+@app.route("/products/search/price/<float:wanted_price>")
+def searchby_price(wanted_price):
+    products = Product.query.filter(Product.price.like(wanted_price)).all()
+    if len(products) == 0:
+        result = new_result("not found", "there are no products that meet the specified specifications on database")
+    else:
+        result = new_result("success", to_json(products))
+    result.headers.add("Access-Control-Allow-Origin", "*")
+    return result
+
+@app.route("/products/search/max_price/<float:max_price>")
+def searchby_maxprice(max_price):
+    products = Product.query.filter(Product.price < max_price).all()
+    if len(products) == 0:
+        result = new_result("not found", "there are no products that meet the specified specifications on database")
+    else:
+        result = new_result("success", to_json(products))
+    result.headers.add("Access-Control-Allow-Origin", "*")
+    return result
+
+@app.route("/products/search/min_price/<float:min_price>")
+def searchby_minprice(min_price):
+    products = Product.query.filter(Product.price > min_price).all()
     if len(products) == 0:
         result = new_result("not found", "there are no products that meet the specified specifications on database")
     else:
