@@ -20,7 +20,7 @@ app.config["JWT_SECRET_KEY"] = "tests"
 jwt = JWTManager(app)
 CORS(app)
 path = os.path.dirname(os.path.abspath(__file__)) 
-arquivobd = os.path.join(path, "deposit.db")
+arquivobd = os.path.join(path, "stock.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///"+arquivobd
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
