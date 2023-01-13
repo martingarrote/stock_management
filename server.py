@@ -2,13 +2,6 @@ from config import *
 from tools import *
 from product import *
 
-# Search Types
-# by name
-# by price
-# by perishable
-# by freezable
-# by validity
-
 @app.route("/")
 def server():
     return "Stock management is working"
@@ -17,6 +10,14 @@ def server():
 @app.route("/products")
 def list_products():
     products = db.session.query(Product).all()
+    result = result_generator(to_json(products))
+    result.headers.add("Access-Control-Allow-Origin", "*")
+    return result
+
+#by id
+@app.route("/products/search/id/<int:id>")
+def searchby_id(id):
+    products = Product.query.filter(Product.id == id)
     result = result_generator(to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
@@ -71,6 +72,23 @@ def searchby_freezable(value):
         products = Product.query.filter(Product.freezable == True).all()
     else:
         products = Product.query.filter(Product.freezable == False).all()
+    result = result_generator(to_json(products))
+    result.headers.add("Access-Control-Allow-Origin", "*")
+    return result
+
+# validity
+@app.route("/products/search/validity/<int:days_to_expire>")
+def searchby_validity(days_to_expire):
+    due_date = date.today() + timedelta(days=days_to_expire)
+    products = Product.query.filter(Product.validity <= due_date).all()
+    result = result_generator(to_json(products))
+    result.headers.add("Access-Control-Allow-Origin", "*")
+    return result
+
+# expired
+@app.route("/products/search/expired")
+def searchby_expired():
+    products = Product.query.filter(Product.expired == True).all()
     result = result_generator(to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result

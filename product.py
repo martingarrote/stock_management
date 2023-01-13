@@ -7,12 +7,13 @@ class Product(db.Model):
     is_perishable = db.Column(db.Boolean, nullable = False)
     freezable = db.Column(db.Boolean, nullable = False)
     price = db.Column(db.Float, nullable = False)
+    expired = db.Column(db.Boolean, nullable = False)
     validity = db.Column(db.Date, nullable = True)
 
     def __str__(self):
         exit = f"id: {self.id} \nname: {self.name} \ndescription: {self.description} \
             \nis_perishable: {self.is_perishable} \nfreeazble: {self.freezable} \
-            \nprice: {self.price}"
+            \nprice: {self.price} \nexpired: {self.expired}"
         if self.validity is not None:
             exit += f"\nvalidity: {self.validity}"
         return exit
@@ -24,7 +25,8 @@ class Product(db.Model):
             "description": self.description,
             "is_perishable": self.is_perishable,
             "freezable": self.freezable,
-            "price": self.price
+            "price": self.price,
+            "expired": self.expired
         }
         if self.validity is not None:
             exit["validity"] = self.validity

@@ -29,3 +29,10 @@ def result_generator(product_list: list):
         return new_result("success", product_list)
     else:
         return new_result("error", "an unexpected error occurred")
+
+def date_format(nf_date):
+    """
+    Takes a date and treats it to the desired format
+    """
+    part = nf_date.split("-")
+    return date(int(part[0]), int(part[1]), int(part[2]))
