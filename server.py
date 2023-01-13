@@ -68,13 +68,27 @@ def searchby_minprice(min_price):
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
-#perishable
+# perishable
 @app.route("/products/search/perishable/<int:value>")
 def searchby_perishable(value):
     if value:
         products = Product.query.filter(Product.is_perishable == True).all()
     else:
         products = Product.query.filter(Product.is_perishable == False).all()
+    if len(products) == 0:
+        result = new_result("not found", "there are no products that meet the specified specifications on database")    
+    else:
+        result = new_result("success", to_json(products))
+    result.headers.add("Access-Control-Allow-Origin", "*")
+    return result
+
+# freezable
+@app.route("/products/search/freezable/<int:value>")
+def searchby_freezable(value):
+    if value:
+        products = Product.query.filter(Product.freezable == True).all()
+    else:
+        products = Product.query.filter(Product.freezable == False).all()
     if len(products) == 0:
         result = new_result("not found", "there are no products that meet the specified specifications on database")    
     else:
