@@ -7,8 +7,11 @@ def to_json(data):
     Receives don't json data and convert to json
     """
     result = []
-    for i in data:
-        result.append(i.json())
+    if type(data) is list:
+        for i in data:
+            result.append(i.json())
+    else:
+        result = data.json()
     return result
 
 # Create an result message to routes

@@ -87,3 +87,17 @@ def searchby_expired():
     result = result_generator(to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
+
+# CURL requests
+
+# curl localhost:5000/products
+# curl localhost:5000/products/search/name/"ap"
+# curl localhost:5000/products/search/price/1.99
+# curl localhost:5000/products/search/max_price/1.0
+# curl localhost:5000/products/search/min_price/1.0
+# curl localhost:5000/products/search/perishable/0
+# curl localhost:5000/products/search/perishable/1
+# curl localhost:5000/products/search/freezable/0
+# curl localhost:5000/products/search/freezable/1
+# curl localhost:5000/products/search/validity/15
+# curl localhost:5000/products/search/expired
