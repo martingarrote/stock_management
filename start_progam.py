@@ -1,5 +1,5 @@
-from config import *
-from product import *
+from general.config import *
+from models.product import *
 
 if __name__ == "__main__":
 

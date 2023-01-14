@@ -1,10 +1,5 @@
-from config import *
-from tools import *
-from product import *
-
-@app.route("/")
-def server():
-    return "Stock management is working"
+from general.config import *
+from general.tools import *
 
 # all products
 @app.route("/products")
@@ -92,5 +87,3 @@ def searchby_expired():
     result = result_generator(to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
-
-app.run(debug = True)

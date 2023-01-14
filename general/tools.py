@@ -1,5 +1,5 @@
-from config import *
-from product import *
+from general.config import *
+from models.product import *
 
 # Transform data in json data
 def to_json(data):

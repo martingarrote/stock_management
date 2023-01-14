@@ -1,4 +1,4 @@
-from config import *
+from general.config import *
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key = True, nullable = False)
