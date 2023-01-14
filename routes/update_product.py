@@ -20,3 +20,17 @@ def update_product(product_id):
         result = new_result("error", str(e))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
+
+@app.route("/update_expired_products", methods = ["PUT"])
+def update_expired_products():
+    products = Product.query.filter(Product.validity < date.today()).all()
+    expired_products = []
+    for p in products:
+        if p.expired == False:
+            p.expired = True
+            expired_products.append(p)
+
+    db.session.commit()
+    result = result_generator(to_json(expired_products))
+    result.headers.add("Access-Control-Allow-Origin", "*")
+    return result
