@@ -3,6 +3,7 @@ from models.product import *
 from general.tools import *
 from routes.read_product import *
 from routes.create_product import *
+from routes.update_product import *
 
 @app.route("/")
 def server():
