@@ -42,6 +42,34 @@ function progress(type) {
         <button onclick="readOptions()">Go</button>
         `)
     }
+
+    else if (type.toUpperCase() === "UPDATE") {
+        $(".content-body").append(`
+        <p>Select an option:</p>
+        <button>Update a specific product</button>
+        <button>Update the expired products not updated</button>
+        `)
+    }
+}
+
+function updateOption(selected) {
+    if (selected === "expired_products") {
+        ajaxFunction("update_expired_products", "PUT", null, function() {alert("Expired products has been update")})
+    }
+    else if (selected === "specific_product") {
+        $(".content-body").append(`
+        <form onsubmit="return false">
+            <input id="nameField" type="text" placeholder="Name"><br>
+            <input id="descriptionField" type="text" placeholder="Description"><br>
+            <input id="perishableField" type="text" placeholder="Perishable"><br>
+            <input id="freezableField" type="text" placeholder="Freezable"><br>
+            <input id="priceField" type="text" placeholder="Price"><br>
+            <input id="expiredField" type="text" placeholder="Expired"><br>
+            <input id="validityField" type="date" placeholder="Validity"> <button onclick="turnNone()">None</button><br>
+            <button id="createProduct" type="submit">Create Product</button>
+        </form>
+        `)
+    }
 }
 
 function readOptions() {
