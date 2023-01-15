@@ -12,7 +12,7 @@ class Product(db.Model):
 
     def __str__(self):
         exit = f"id: {self.id} \nname: {self.name} \ndescription: {self.description} \
-            \nis_perishable: {self.is_perishable} \nfreeazble: {self.freezable} \
+            \nis_perishable: {self.is_perishable} \nfreezable: {self.freezable} \
             \nprice: {self.price} \nexpired: {self.expired}"
         if self.validity is not None:
             exit += f"\nvalidity: {self.validity}"

@@ -12,7 +12,7 @@ def list_products():
 #by id
 @app.route("/products/search/id/<int:id>")
 def searchby_id(id):
-    products = Product.query.filter(Product.id == id)
+    products = Product.query.get(id)
     result = result_generator(to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
@@ -91,6 +91,7 @@ def searchby_expired():
 # CURL requests
 
 # curl localhost:5000/products
+# curl localhost:5000/products/search/id/1
 # curl localhost:5000/products/search/name/"ap"
 # curl localhost:5000/products/search/price/1.99
 # curl localhost:5000/products/search/max_price/1.0
