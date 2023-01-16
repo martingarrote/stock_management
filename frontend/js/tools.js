@@ -3,10 +3,12 @@ let server = `localhost:5000`
 function returnToDefault() {
     $(".content-body").empty()
     $(".content-body").append(`<p>Press an button to start to testing the program</p>`)
+    $(".products").empty()
 }
 
-function progress(type) {
+function displayContent(type) {
     $(".content-body").empty()
+    clearProducts()
     if (type.toUpperCase() === "CREATE") {
         $(".content-body").append(`
         <p>Insert the informations to create a new product:</p>
@@ -17,7 +19,7 @@ function progress(type) {
             <input id="freezableField" type="text" placeholder="Freezable"><br>
             <input id="priceField" type="text" placeholder="Price"><br>
             <input id="expiredField" type="text" placeholder="Expired"><br>
-            <input id="validityField" type="date" placeholder="Validity"> <button onclick="turnNone()">None</button><br>
+            <input id="validityField" type="date" placeholder="Validity"><br>
             <button id="createProduct" type="submit">Create Product</button>
         </form>
         `)
@@ -46,88 +48,9 @@ function progress(type) {
     else if (type.toUpperCase() === "UPDATE") {
         $(".content-body").append(`
         <p>Select an option:</p>
-        <button>Update a specific product</button>
-        <button>Update the expired products not updated</button>
+        <button onclick="updateProduct('specific_product')">Update a specific product</button>
+        <button onclick="updateProduct('expired_products')">Update the expired products not updated</button>
         `)
-    }
-}
-
-function updateOption(selected) {
-    if (selected === "expired_products") {
-        ajaxFunction("update_expired_products", "PUT", null, function() {alert("Expired products has been update")})
-    }
-    else if (selected === "specific_product") {
-        $(".content-body").append(`
-        <form onsubmit="return false">
-            <input id="nameField" type="text" placeholder="Name"><br>
-            <input id="descriptionField" type="text" placeholder="Description"><br>
-            <input id="perishableField" type="text" placeholder="Perishable"><br>
-            <input id="freezableField" type="text" placeholder="Freezable"><br>
-            <input id="priceField" type="text" placeholder="Price"><br>
-            <input id="expiredField" type="text" placeholder="Expired"><br>
-            <input id="validityField" type="date" placeholder="Validity"> <button onclick="turnNone()">None</button><br>
-            <button id="createProduct" type="submit">Create Product</button>
-        </form>
-        `)
-    }
-}
-
-function readOptions() {
-    clearProducts()
-    let value = $("#selectType").find(":selected").val()
-    let information = $("#information").val()
-    let route
-    if (information.length > 0 || value === "all" || value === "expired") {
-        if (value === "all") {
-            route = "products"
-        }
-        else if (value === "id") {
-            route = `products/search/id/${information}`
-        }
-        else if (value === "name") {
-            route = `products/search/name/${information}`
-        }
-        else if (value === "price") {
-            route = `products/search/price/${information}`
-        }
-        else if (value === "maxPrice") {
-            route = `products/search/max_price/${information}`
-        }
-        else if (value === "minPrice") {
-            route = `products/search/min_price/${information}`
-        }
-        else if (value === "perishable") {
-            route = `products/search/perishable/${information}`
-        }
-        else if (value === "freezable") {
-            route = `products/search/freezable/${information}`
-        }
-        else if (value === "validity") {
-            route = `products/search/validity/${information}`
-        }
-        else if (value === "expired") {
-            route = `products/search/expired`
-        }
-        ajaxFunction(route, "GET", null, function (returnContent) {
-            if (returnContent.result === "success") {
-                console.log(route)
-                if (route != `products/search/id/${information}`)
-                    for (p of returnContent.details) {
-                        console.log(p)
-                        $(".products").append(displayProduct(p.name, p.description,
-                        p.is_perishable, p.freezable, p.price, p.expired, p.validity))
-                    }
-                else {
-                    console.log("oi")
-                    let p = returnContent.details
-                    $(".products").append(displayProduct(p.name, p.description,
-                        p.is_perishable, p.freezable, p.price, p.expired, p.validity))
-                }
-            }
-        })
-    }
-    else {
-        alert("It is necessary to provide information in the respective field.")
     }
 }
 
@@ -139,7 +62,10 @@ function booleanFixer(value) {
     if (value.toUpperCase() === "TRUE") {
         return true
     }
-    return false
+    else if (value.toUpperCase() === "FALSE") {
+        return false
+    }
+    return null
 }
 
 function displayProduct(name, description, is_perishable, freezable, price, expired, validity) {
@@ -161,7 +87,6 @@ function displayProduct(name, description, is_perishable, freezable, price, expi
 }
 
 function ajaxFunction(route, type, data, successFunction) {
-    console.log(route, type, data, successFunction)
     if (type === "GET") {
         $.ajax({
             url: `http://${server}/${route}`,
@@ -170,7 +95,7 @@ function ajaxFunction(route, type, data, successFunction) {
             contentType: "application/json",
             success: successFunction,
             error: function(xhr, status, error) {
-                alert(`Erro na conexão, verifique o backend. ${xhr.responseText} - ${status} - ${error}`);
+                alert(`Connection error, check backend. ${xhr.responseText} - ${status} - ${error}`);
             }
         })
     }

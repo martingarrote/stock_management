@@ -7,9 +7,9 @@ def update_product(product_id):
     data = request.get_json()
     try:
         if product_id:
-            product_target = Product.query.get(product_id)
-            if data["validity"]:
+            if "validity" in data:
                 data["validity"] = date_format(data["validity"])
+            product_target = Product.query.get(product_id)
             for at in data:
                 setattr(product_target, at, data[at])
             db.session.commit()

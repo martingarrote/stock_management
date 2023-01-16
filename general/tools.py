@@ -11,7 +11,6 @@ def to_json(data):
         for i in data:
             result.append(i.json())
     else:
-        print(data)
         result = data.json()
     return result
 

@@ -1,9 +1,3 @@
-let validityNone = false
-
-function turnNone() {
-    validityNone = true
-}
-
 $(document).on("click", "#createProduct", function() {
     let name = $("#nameField").val()
     let description = $("#descriptionField").val()
@@ -13,7 +7,7 @@ $(document).on("click", "#createProduct", function() {
     let expired = booleanFixer($("#expiredField").val())
     let validity = $("#validityField").val()
 
-    if (validityNone === false) {
+    if (validity != "") {
         data = JSON.stringify({name: name, description: description,
         is_perishable: perishable, freezable: freezable, price: price, 
         expired: expired, validity: validity})
