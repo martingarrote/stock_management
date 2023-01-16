@@ -52,6 +52,13 @@ function displayContent(type) {
         <button onclick="updateProduct('expired_products')">Update the expired products not updated</button>
         `)
     }
+
+    else if (type.toUpperCase() === "DELETE") {
+        $(".content-body").append(`
+            <p>Insert the id of the product that you want to delete</p><br>
+            <input id="productToDelete" type="number" min="1" placeholder="ID of the product"><button id="deleteBtn">Delete<button>
+        `)
+    }
 }
 
 function clearProducts() {

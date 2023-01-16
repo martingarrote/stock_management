@@ -8,7 +8,10 @@ def update_product(product_id):
     try:
         if product_id:
             if "validity" in data:
-                data["validity"] = date_format(data["validity"])
+                if data["validity"] == "noValidity":
+                    data["validity"] = None
+                else:
+                    data["validity"] = date_format(data["validity"])
             product_target = Product.query.get(product_id)
             for at in data:
                 setattr(product_target, at, data[at])
