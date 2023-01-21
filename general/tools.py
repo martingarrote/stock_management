@@ -1,5 +1,6 @@
 from general.config import *
 from models.product import *
+from hashlib import blake2b
 
 # Transform data in json data
 def to_json(data):
@@ -33,9 +34,24 @@ def result_generator(product_list: list):
     else:
         return new_result("error", "an unexpected error occurred")
 
+# Receives non formated date and return formated date
 def date_format(nf_date):
     """
     Takes a date and treats it to the desired format
     """
     part = nf_date.split("-")
     return date(int(part[0]), int(part[1]), int(part[2]))
+
+# Encrypt password
+def encrypt(password):
+    h = blake2b()
+    byted = bytes(password, encoding= "utf-8")
+    h.update(byted)
+    return h.hexdigest()
+
+# Valid password provided
+def validate_password(pw_encrypted, given_pw):
+    given = encrypt(given_pw)
+    if given == pw_encrypted:
+        return True
+    return False

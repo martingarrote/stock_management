@@ -1,5 +1,7 @@
 from general.config import *
 from models.product import *
+from models.permission import *
+from models.person import *
 
 if __name__ == "__main__":
 
