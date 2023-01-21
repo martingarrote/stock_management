@@ -11,6 +11,8 @@ from routes.create_person import *
 from routes.read_person import *
 from routes.update_person import *
 
+from routes.read_permissions import *
+
 @app.route("/")
 def server():
     return "Stock management is working"
