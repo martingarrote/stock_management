@@ -5,15 +5,15 @@ from general.tools import *
 @app.route("/products")
 def list_products():
     products = db.session.query(Product).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
 #by id
 @app.route("/products/search/id/<int:id>")
-def searchby_id(id):
+def searchby_product_id(id):
     products = Product.query.get(id)
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
@@ -21,7 +21,7 @@ def searchby_id(id):
 @app.route("/products/search/name/<string:product_name>")
 def searchby_name(product_name):
     products = Product.query.filter(Product.name.contains(product_name)).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
@@ -29,7 +29,7 @@ def searchby_name(product_name):
 @app.route("/products/search/price/<float:wanted_price>")
 def searchby_price(wanted_price):
     products = Product.query.filter(Product.price.like(wanted_price)).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
@@ -37,7 +37,7 @@ def searchby_price(wanted_price):
 @app.route("/products/search/max_price/<float:max_price>")
 def searchby_maxprice(max_price):
     products = Product.query.filter(Product.price < max_price).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
@@ -45,7 +45,7 @@ def searchby_maxprice(max_price):
 @app.route("/products/search/min_price/<float:min_price>")
 def searchby_minprice(min_price):
     products = Product.query.filter(Product.price > min_price).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
@@ -56,7 +56,7 @@ def searchby_perishable(value):
         products = Product.query.filter(Product.is_perishable == True).all()
     else:
         products = Product.query.filter(Product.is_perishable == False).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
@@ -67,7 +67,7 @@ def searchby_freezable(value):
         products = Product.query.filter(Product.freezable == True).all()
     else:
         products = Product.query.filter(Product.freezable == False).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
@@ -76,7 +76,7 @@ def searchby_freezable(value):
 def searchby_validity(days_to_expire):
     due_date = date.today() + timedelta(days=days_to_expire)
     products = Product.query.filter(Product.validity <= due_date).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
@@ -84,7 +84,7 @@ def searchby_validity(days_to_expire):
 @app.route("/products/search/expired")
 def searchby_expired():
     products = Product.query.filter(Product.expired == True).all()
-    result = result_generator(to_json(products))
+    result = result_generator("product", to_json(products))
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 

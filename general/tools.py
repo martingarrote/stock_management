@@ -23,14 +23,14 @@ def new_result(result, details):
     return jsonify({"result": result, "details": details})
 
 # Return the result
-def result_generator(product_list: list):
+def result_generator(class_name: str, data_list: list):
     """
     Receives a json list and return the sentence based on informed data
     """
-    if len(product_list) == 0:
-        return new_result("not found", "the desired products were not found")
-    elif len(product_list) >= 1:
-        return new_result("success", product_list)
+    if len(data_list) == 0:
+        return new_result("not found", f"the desired {class_name}s were not found")
+    elif len(data_list) >= 1:
+        return new_result("success", data_list)
     else:
         return new_result("error", "an unexpected error occurred")
 

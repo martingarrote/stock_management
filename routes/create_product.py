@@ -11,7 +11,7 @@ def new_product():
         product = Product(**data)
         db.session.add(product)
         db.session.commit()
-        result = result_generator(to_json(product))
+        result = result_generator("product", to_json(product))
     except Exception as e:
         result = new_result("error", str(e))
     result.headers.add("Access-Control-Allow-Origin", "*")
