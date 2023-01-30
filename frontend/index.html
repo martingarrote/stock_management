@@ -15,7 +15,8 @@
                 <input id="emailField" type="text" placeholder="Email"><br><br>
                 <label for="passwordField">Write your password</label><br>
                 <input id="passwordField" type="password" placeholder="Password"><br><br>
-                <button onclick="login()">Login</button>
+                <button onclick="login()">Login</button><br><br>
+                <button onclick="newAccountMenu()">Create Account</button>
             </form>
         </div>
         <div class="products">
@@ -27,9 +28,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="js/login.js"></script>
     <script src="js/tools.js"></script>
+    <script src="js/create_person.js"></script>
     <script src="js/create_product.js"></script>
     <script src="js/read_products.js"></script>
     <script src="js/update_products.js"></script>
     <script src="js/delete_products.js"></script>
+    <script>
+        if (sessionStorage.getItem("login")) {
+            returnToDefault()
+            displayInitialMenu(sessionStorage.getItem("user_permission"))
+        }
+    </script>
 </body>
 </html>

@@ -10,20 +10,18 @@ function login() {
 
     ajaxFunction("login", "POST", data, function(returnContent) {
         if (returnContent.result === "success") {
+            sessionStorage.setItem("login", returnContent.user.email)
             sessionStorage.setItem("jwt", returnContent.token)
-            sessionStorage.setItem("user", returnContent.user)
             sessionStorage.setItem("user_permission", returnContent.user.permission.name)
             alert(`Successfully logged in! Welcome ${returnContent.user.name}!`)
-            return displayInitialMenu()
+            return displayInitialMenu(returnContent.user.permission.name.toLowerCase())
         }
-        
     })
-
 }
 
 function logOut() {
+    sessionStorage.removeItem("login")
     sessionStorage.removeItem("jwt")
-    sessionStorage.removeItem("user")
     sessionStorage.removeItem("user_permission")
     $(".content-head").empty()
     $(".content-body").empty()

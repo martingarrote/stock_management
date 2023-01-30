@@ -1,7 +1,5 @@
 let server = sessionStorage.getItem("server")
 let jwt = sessionStorage.getItem("jwt")
-let user_permission = sessionStorage.getItem("user_permission")
-
 
 function returnToDefault() {
     $(".content-body").empty()
@@ -9,8 +7,7 @@ function returnToDefault() {
     $(".products").empty()
 }
 
-function displayInitialMenu() {
-    console.log(user_permission)
+function displayInitialMenu(user_permission) {
     if (user_permission === "admin") {
         $(".content-head").append(`
         <button onclick="returnToDefault()">HOME</button>

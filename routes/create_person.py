@@ -10,6 +10,7 @@ def create_person():
     user_permission = current_user.permission.name
     if can_do("create_person", "post", user_permission):
         data = request.get_json()
+        data["password"] = encrypt(data["password"])
 
         try:
             person = Person(**data)

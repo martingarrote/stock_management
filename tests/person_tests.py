@@ -10,8 +10,8 @@ def run():
     admin_permission = Permission.query.get(3)
 
     admin = Person(name = "admin", email = "admin@gmail.com", password = encrypt("312"), permission = admin_permission)
-    worker = Person(name = "worker", email = "worker@gmail.com", password = encrypt("worker"), permission = worker_permission)
-    person = Person(name = "person", email = "person@gmail.com", password = encrypt("person"), permission = default_permission)
+    worker = Person(name = "worker", email = "worker@gmail.com", password = encrypt("123"), permission = worker_permission)
+    person = Person(name = "person", email = "person@gmail.com", password = encrypt("123"), permission = default_permission)
 
     db.session.add_all([admin, worker, person])
     db.session.commit()
