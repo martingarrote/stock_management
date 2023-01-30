@@ -55,3 +55,21 @@ def validate_password(pw_encrypted, given_pw):
     if given == pw_encrypted:
         return True
     return False
+
+# Verify if the user have permission to do certain thing
+def can_do(route, method, permission):
+    only_admin_routes = ["read_person", "update_person", "delete_person", "read_permissions"]
+    worker = ["create", "read", "update"]
+
+    if route.lower() in only_admin_routes:
+        if permission.lower() == "admin":
+            return True
+    else:
+        if permission.lower() == "admin":
+            return True
+        elif permission.lower() == "worker":
+            if method.lower() in worker:
+                return True
+        elif permission.lower() == "default" and method.lower() == "read":
+            return True
+    return False

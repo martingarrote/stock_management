@@ -1,19 +1,3 @@
-function sucessfullyLoggedIn() {
-    console.log("oii")
-    $(".content-body").empty()
-    $(".content-head").append(`
-        <button onclick="returnToDefault()">HOME</button>
-        <button onclick="displayContent('create')">CREATE</button>
-        <button onclick="displayContent('read')">READ</button>
-        <button onclick="displayContent('update')">UPDATE</button>
-        <button onclick="displayContent('delete')">DELETE</button>
-    `)
-    $(".content-body").append(`
-        <p>Press an button to start to testing the program</p>
-    `)
-    return alert("successfully logged in")
-}
-
 function login() {
     let server = sessionStorage.getItem("server")
     let email = $("#emailField").val()
@@ -24,6 +8,33 @@ function login() {
         password: password
     })
 
-    ajaxFunction("login", "POST", data, function() {sucessfullyLoggedIn()})
+    ajaxFunction("login", "POST", data, function(returnContent) {
+        if (returnContent.result === "success") {
+            sessionStorage.setItem("jwt", returnContent.token)
+            sessionStorage.setItem("user", returnContent.user)
+            sessionStorage.setItem("user_permission", returnContent.user.permission.name)
+            alert(`Successfully logged in! Welcome ${returnContent.user.name}!`)
+            return displayInitialMenu()
+        }
+        
+    })
 
+}
+
+function logOut() {
+    sessionStorage.removeItem("jwt")
+    sessionStorage.removeItem("user")
+    sessionStorage.removeItem("user_permission")
+    $(".content-head").empty()
+    $(".content-body").empty()
+    $(".products").empty()
+    $(".content-body").append(`
+    <form onsubmit="return false">
+        <label for="emailField">Write your email</label><br>
+        <input id="emailField" type="text" placeholder="Email"><br><br>
+        <label for="passwordField">Write your password</label><br>
+        <input id="passwordField" type="password" placeholder="Password"><br><br>
+        <button onclick="login()">Login</button>
+    </form>
+    `)
 }

@@ -1,9 +1,47 @@
 let server = sessionStorage.getItem("server")
+let jwt = sessionStorage.getItem("jwt")
+let user_permission = sessionStorage.getItem("user_permission")
+
 
 function returnToDefault() {
     $(".content-body").empty()
     $(".content-body").append(`<p>Press an button to start to testing the program</p>`)
     $(".products").empty()
+}
+
+function displayInitialMenu() {
+    console.log(user_permission)
+    if (user_permission === "admin") {
+        $(".content-head").append(`
+        <button onclick="returnToDefault()">HOME</button>
+        <button onclick="displayContent('create')">CREATE</button>
+        <button onclick="displayContent('read')">READ</button>
+        <button onclick="displayContent('update')">UPDATE</button>
+        <button onclick="displayContent('delete')">DELETE</button>
+        <button disabled>MANAGE PANEL</button>
+        `)
+    }
+    else if (user_permission === "worker") {
+        $(".content-head").append(`
+        <button onclick="returnToDefault()">HOME</button>
+        <button onclick="displayContent('create')">CREATE</button>
+        <button onclick="displayContent('read')">READ</button>
+        <button onclick="displayContent('update')">UPDATE</button>
+        `)
+    }
+    else if (user_permission === "default") {
+        $(".content-head").append(`
+        <button onclick="returnToDefault()">HOME</button>
+        <button onclick="displayContent('read')">READ</button>
+        `)
+    }
+    $(".content-body").empty()
+    $(".content-body").append(`
+        <p>Press an button to start to testing the program</p>
+    `)
+    $(".content-head").append(`
+    <button onclick="logOut()">Logout</button>
+    `)
 }
 
 function displayContent(type) {
@@ -89,17 +127,30 @@ function displayProduct(name, description, is_perishable, freezable, price, expi
                     <li>Expired: ${expired}</li>
                     <li>Validity: ${validity}</li>
                 </ul>
-            </div>`
-    
+            </div>`   
 }
 
 function ajaxFunction(route, type, data, successFunction) {
-    if (type === "GET") {
+    if (route === "login") {
         $.ajax({
             url: `http://${server}/${route}`,
             type: `${type}`,
             dataType: "JSON",
             contentType: "application/json",
+            data: data,
+            success: successFunction,
+            error: function(xhr, status, error) {
+                alert(`Erro na conexão, verifique o backend. ${xhr.responseText} - ${status} - ${error}`);
+            }
+        })
+    }
+    else if (type === "GET") {
+        $.ajax({
+            url: `http://${server}/${route}`,
+            type: `${type}`,
+            dataType: "JSON",
+            contentType: "application/json",
+            headers: {Authorization: `Bearer ${jwt}`},
             success: successFunction,
             error: function(xhr, status, error) {
                 alert(`Connection error, check backend. ${xhr.responseText} - ${status} - ${error}`);
@@ -113,6 +164,7 @@ function ajaxFunction(route, type, data, successFunction) {
             type: `${type}`,
             dataType: "JSON",
             contentType: "application/json",
+            headers: {Authorization: `Bearer ${jwt}`},
             data: data,
             success: successFunction,
             error: function(xhr, status, error) {
@@ -127,6 +179,7 @@ function ajaxFunction(route, type, data, successFunction) {
             type: `${type}`,
             dataType: "JSON",
             contentType: "application/json",
+            headers: {Authorization: `Bearer ${jwt}`},
             data: data,
             success: successFunction,
             error: function(xhr, status, error) {

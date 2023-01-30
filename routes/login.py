@@ -16,6 +16,6 @@ def login():
     if person is None:
         result = new_result("error", "email and/or password are incorrect")
     else:
-        result = jsonify({"result": "sucess", "user": to_json(person), "token": access_token})
+        result = jsonify({"result": "success", "user": to_json(person), "token": access_token})
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
