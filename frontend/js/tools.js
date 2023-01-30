@@ -1,4 +1,4 @@
-let server = `localhost:5000`
+let server = sessionStorage.getItem("server")
 
 function returnToDefault() {
     $(".content-body").empty()
@@ -56,7 +56,7 @@ function displayContent(type) {
     else if (type.toUpperCase() === "DELETE") {
         $(".content-body").append(`
             <p>Insert the id of the product that you want to delete</p><br>
-            <input id="productToDelete" type="number" min="1" placeholder="ID of the product"><button id="deleteBtn">Delete<button>
+            <input id="productToDelete" type="number" min="1" placeholder="ID of the product"><button id="deleteBtn">Delete</button>
         `)
     }
 }

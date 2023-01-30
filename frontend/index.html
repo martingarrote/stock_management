@@ -8,19 +8,24 @@
 <body>
     <div class="content">
         <div class="content-head">
-            <button onclick="returnToDefault()">HOME</button>
-            <button onclick="displayContent('create')">CREATE</button>
-            <button onclick="displayContent('read')">READ</button>
-            <button onclick="displayContent('update')">UPDATE</button>
-            <button onclick="displayContent('delete')">DELETE</button>
         </div>
         <div class="content-body">
-            <p>Press an button to start to testing the program</p>
+            <form onsubmit="return false">
+                <label for="emailField">Write your email</label><br>
+                <input id="emailField" type="text" placeholder="Email"><br><br>
+                <label for="passwordField">Write your password</label><br>
+                <input id="passwordField" type="password" placeholder="Password"><br><br>
+                <button onclick="login()">Login</button>
+            </form>
         </div>
         <div class="products">
         </div>
     </div>
+    <script>
+        sessionStorage.setItem("server", "localhost:5000")
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="js/login.js"></script>
     <script src="js/tools.js"></script>
     <script src="js/create_product.js"></script>
     <script src="js/read_products.js"></script>
