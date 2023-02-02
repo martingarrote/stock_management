@@ -10,21 +10,20 @@ function newAccountMenu() {
         <input id="personPasswordField" type="password" placeholder="Password"><br><br>
         <label for="personPasswordField2">Repeat your password</label><br>
         <input id="personPasswordField2" type="password" placeholder="Password second time"><br><br>
-        <button onclick="createAccount()">Create Account</button>
+        <button id="createAccount">Create Account</button>
     </form>
     `)
 }
 
-function createAccount() {
+$(document).on("click", "#createAccount", function() {
+
     let name = $("#personNameField").val()
     let email = $("#personEmailField").val()
     let password = $("#personPasswordField").val()
     let password2 = $("#personPasswordField2").val()
 
-    console.log(password)
-
     if (password === password2) {
-        let data = JSON.stringify({
+        data = JSON.stringify({
             name: name,
             email: email,
             password: password
@@ -49,8 +48,8 @@ function createAccount() {
         })
     }
     else {
-        $("#personPasswordField").empty()
-        $("#personPasswordField2").empty()
+        $("#personPasswordField").val("")
+        $("#personPasswordField2").val("")
         alert("Passwords are not the same")
     }
-}
+})

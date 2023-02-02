@@ -1,5 +1,4 @@
 function login() {
-    let server = sessionStorage.getItem("server")
     let email = $("#emailField").val()
     let password = $("#passwordField").val()
 
@@ -15,6 +14,9 @@ function login() {
             sessionStorage.setItem("user_permission", returnContent.user.permission.name)
             alert(`Successfully logged in! Welcome ${returnContent.user.name}!`)
             return displayInitialMenu(returnContent.user.permission.name.toLowerCase())
+        }
+        else {
+            alert(`${returnContent.result}: ${returnContent.details}`)
         }
     })
 }
@@ -33,6 +35,7 @@ function logOut() {
         <label for="passwordField">Write your password</label><br>
         <input id="passwordField" type="password" placeholder="Password"><br><br>
         <button onclick="login()">Login</button>
+        <button onclick="newAccountMenu()">Create Account</button>
     </form>
     `)
 }

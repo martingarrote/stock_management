@@ -15,7 +15,7 @@ function displayInitialMenu(user_permission) {
         <button onclick="displayContent('read')">READ</button>
         <button onclick="displayContent('update')">UPDATE</button>
         <button onclick="displayContent('delete')">DELETE</button>
-        <button disabled>MANAGE PANEL</button>
+        <button onclick="window.location.assign(location.href='')">MANAGE PANEL</button>
         `)
     }
     else if (user_permission === "worker") {
@@ -37,7 +37,7 @@ function displayInitialMenu(user_permission) {
         <p>Press an button to start to testing the program</p>
     `)
     $(".content-head").append(`
-    <button onclick="logOut()">Logout</button>
+    <button onclick="logOut()">LOGOUT</button>
     `)
 }
 
@@ -128,20 +128,7 @@ function displayProduct(name, description, is_perishable, freezable, price, expi
 }
 
 function ajaxFunction(route, type, data, successFunction) {
-    if (route === "login") {
-        $.ajax({
-            url: `http://${server}/${route}`,
-            type: `${type}`,
-            dataType: "JSON",
-            contentType: "application/json",
-            data: data,
-            success: successFunction,
-            error: function(xhr, status, error) {
-                alert(`Erro na conexão, verifique o backend. ${xhr.responseText} - ${status} - ${error}`);
-            }
-        })
-    }
-    else if (type === "GET") {
+    if (type === "GET") {
         $.ajax({
             url: `http://${server}/${route}`,
             type: `${type}`,
@@ -154,7 +141,6 @@ function ajaxFunction(route, type, data, successFunction) {
             }
         })
     }
-
     else if (type === "POST" || type === "PUT") {
         $.ajax({
             url: `http://${server}/${route}`,
@@ -169,7 +155,6 @@ function ajaxFunction(route, type, data, successFunction) {
             }
         })
     }
-
     else if (type === "DELETE") {
         $.ajax({
             url: `http://${server}/${route}`,
