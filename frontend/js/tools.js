@@ -15,7 +15,7 @@ function displayInitialMenu(user_permission) {
         <button onclick="displayContent('read')">READ</button>
         <button onclick="displayContent('update')">UPDATE</button>
         <button onclick="displayContent('delete')">DELETE</button>
-        <button onclick="window.location.assign(location.href='')">MANAGE PANEL</button>
+        <button onclick="window.location.assign(location.href='manage_panel.html')">MANAGE PANEL</button>
         `)
     }
     else if (user_permission === "worker") {
@@ -127,6 +127,30 @@ function displayProduct(name, description, is_perishable, freezable, price, expi
             </div>`   
 }
 
+function displayPerson(id, name, email, permission) {
+    if (permission === "admin" && id === 1) {
+        return `<tr id="pline-${id}">
+                    <td>${name}</td>
+                    <td>${email}</td>
+                    <td>${permission}</td>
+                    <td>
+                    <i class="fa-solid fa-pen-to-square" title="Update person"></i>
+                    </td>
+                </tr>`
+    }
+    else {
+        return `<tr id="pline-${id}">
+                    <td>${name}</td>
+                    <td>${email}</td>
+                    <td>${permission}</td>
+                    <td>
+                    <i class="fa-solid fa-pen-to-square" title="Update person"></i>
+                    <i class="fa-solid fa-trash" title="Delete person" onclick=deletePerson(${id})></i>
+                    </td>
+                </tr>`
+    }
+}
+
 function ajaxFunction(route, type, data, successFunction) {
     if (type === "GET") {
         $.ajax({
@@ -162,7 +186,6 @@ function ajaxFunction(route, type, data, successFunction) {
             dataType: "JSON",
             contentType: "application/json",
             headers: {Authorization: `Bearer ${jwt}`},
-            data: data,
             success: successFunction,
             error: function(xhr, status, error) {
                 alert(`Erro na conexão, verifique o backend. ${xhr.responseText} - ${status} - ${error}`);
@@ -170,3 +193,4 @@ function ajaxFunction(route, type, data, successFunction) {
         })
     }
 }
+

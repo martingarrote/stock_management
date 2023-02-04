@@ -8,8 +8,6 @@ def create_person():
     data = request.get_json()
     data["password"] = encrypt(data["password"])
 
-    print(data)
-
     try:
         person = Person(**data)
         person.permission_id = 1

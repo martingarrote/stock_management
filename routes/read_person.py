@@ -22,7 +22,7 @@ def searchby_permission(permission_id):
     current_user = Person.query.filter(Person.email == get_jwt_identity()).first() 
     user_permission = current_user.permission.name
     if can_do("read_person", "get", user_permission):
-        if permission_id > 3 or permission_id < 1:
+        if permission_id not in [1, 2, 3]:
             result = new_result("error", "invalid id")
         else:
             persons = Person.query.filter(Person.permission_id == permission_id).all()

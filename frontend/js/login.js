@@ -38,4 +38,5 @@ function logOut() {
         <button onclick="newAccountMenu()">Create Account</button>
     </form>
     `)
+    window.location.assign(location.href='index.html')
 }

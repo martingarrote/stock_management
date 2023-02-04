@@ -10,3 +10,21 @@
     border: 2px black;
     border-radius: 10px;
 }
+
+table, th, tr, td {
+    margin-top: 30px;
+    padding: 5px;
+    border: 1px solid;
+    border-collapse: collapse;
+    cursor: default;
+}
+
+.fa-pen-to-square:hover {
+    color: rgb(0, 255, 0);
+    cursor: pointer;
+}
+
+.fa-trash:hover {
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}

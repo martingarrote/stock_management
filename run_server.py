@@ -8,6 +8,7 @@ from routes.delete_product import *
 from routes.create_person import *
 from routes.read_person import *
 from routes.update_person import *
+from routes.delete_person import *
 from routes.read_permissions import *
 from routes.login import *
 

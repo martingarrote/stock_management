@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Manage Panel</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="manage-head">
+        <button onclick="window.location.assign(location.href='index.html')">HOME</button>
+        <button onclick="displayButtons()">PERSONS</button>
+        <button onclick="logOut()">LOGOUT</button>
+    </div>
+    <div class="manage-body">
+        <p>Click in any button to do something</p>
+    </div>
+    <div class="persons"></div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        $(document).hide()
+        if (!sessionStorage.getItem("jwt")) {
+            $(document).empty()
+            window.location.assign(location.href="index.html")
+            alert("Not logged!")
+        }
+        else {
+            $(document).show()
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/1edb82e981.js" crossorigin="anonymous"></script>
+    <script src="js/login.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/read_persons.js"></script>
+    <script src="js/delete_person.js"></script>
+</body>
+</html>

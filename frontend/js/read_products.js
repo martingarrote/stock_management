@@ -36,7 +36,6 @@ function readOptions() {
         }
         ajaxFunction(route, "GET", null, function (returnContent) {
             if (returnContent.result === "success") {
-                console.log(route)
                 if (route != `products/search/id/${information}`)
                     for (p of returnContent.details) {
                         $(".products").append(displayProduct(p.name, p.description,
