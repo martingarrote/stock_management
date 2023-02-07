@@ -12,7 +12,7 @@ def list_persons():
         persons = db.session.query(Person).all()
         result = result_generator("person", to_json(persons))
     else:
-        result = new_result("error", "insufficient error")
+        result = new_result("error", "insufficient permission")
     result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 

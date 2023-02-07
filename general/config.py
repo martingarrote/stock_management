@@ -18,6 +18,7 @@ from flask_jwt_extended import JWTManager
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = "tests"
 jwt = JWTManager(app)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=45)
 CORS(app)
 path = os.path.dirname(os.path.abspath(__file__)) 
 arquivobd = os.path.join(path, "stock.db")

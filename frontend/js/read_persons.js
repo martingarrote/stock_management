@@ -46,7 +46,7 @@ function readPersons() {
             `)
             for (p of returnContent.details) {
                 $("#persons-table-body").append(
-                    displayPerson(p.id, p.name, p.email, p.permission.name)
+                    displayPerson(p.id, p.name, p.email, p.permission.name, p.permission.id)
                 )
             }
         }

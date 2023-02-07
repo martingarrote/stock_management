@@ -19,12 +19,12 @@ table, th, tr, td {
     cursor: default;
 }
 
-.fa-pen-to-square:hover {
+.fa-pen-to-square:hover, .fa-check:hover {
     color: rgb(0, 255, 0);
     cursor: pointer;
 }
 
-.fa-trash:hover {
+.fa-trash:hover, .fa-x:hover {
     color: rgb(255, 0, 0);
     cursor: pointer;
 }

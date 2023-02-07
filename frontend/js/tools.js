@@ -127,25 +127,25 @@ function displayProduct(name, description, is_perishable, freezable, price, expi
             </div>`   
 }
 
-function displayPerson(id, name, email, permission) {
+function displayPerson(id, name, email, permission, permissionId) {
     if (permission === "admin" && id === 1) {
         return `<tr id="pline-${id}">
-                    <td>${name}</td>
-                    <td>${email}</td>
-                    <td>${permission}</td>
-                    <td>
-                    <i class="fa-solid fa-pen-to-square" title="Update person"></i>
+                    <td id="pName-${id}">${name}</td>
+                    <td id="pEmail-${id}">${email}</td>
+                    <td id="pPermission-${id}" class="permission-${permissionId}">${permission}</td>
+                    <td id="operations-${id}">
+                    <i id="updatePersonIcon-${id}" class="fa-solid fa-pen-to-square" title="Update person" onclick="startPersonUpdate(${id})"></i>
                     </td>
                 </tr>`
     }
     else {
         return `<tr id="pline-${id}">
-                    <td>${name}</td>
-                    <td>${email}</td>
-                    <td>${permission}</td>
-                    <td>
-                    <i class="fa-solid fa-pen-to-square" title="Update person"></i>
-                    <i class="fa-solid fa-trash" title="Delete person" onclick=deletePerson(${id})></i>
+                    <td id="pName-${id}">${name}</td>
+                    <td id="pEmail-${id}">${email}</td>
+                    <td id="pPermission-${id}" class="permission-${permissionId}">${permission}</td>
+                    <td id="operations-${id}">
+                    <i id="updatePersonIcon-${id}" class="fa-solid fa-pen-to-square" title="Update person" onclick="startPersonUpdate(${id})"></i>
+                    <i id="deletePersonIcon-${id}" class="fa-solid fa-trash" title="Delete person" onclick="deletePerson(${id})"></i>
                     </td>
                 </tr>`
     }
